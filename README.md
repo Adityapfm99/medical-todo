@@ -6,9 +6,9 @@ A medical application that allows users to register, log in, and access various 
 
 1. [Prerequisites](#prerequisites)
 2. [Setup Instructions](#setup-instructions)
-3. [Database Migration and Seeding](#database-migration-seeding)
-4. [Database Seeding](#database-seeding)
-5. [Entity-Relationship Diagram (ERD)](#erd)
+3. [Database Migration and Seeding](#database-migration-and-seeding)
+4. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+5. [Interactive API Documentation with Swagger](#interactive-api-documentation-with-swagger)
 6. [Unit Testing](#unit-testing)
 7. [Features](#features)
 
@@ -97,7 +97,7 @@ A medical application that allows users to register, log in, and access various 
       ```
 
    ![Alt text](backend/src/img/swagger.png)
-   
+
    ### Features of Swagger
 
    - **Interactive Documentation**: Test API endpoints directly from the browser.
