@@ -8,9 +8,8 @@ A comprehensive medical application designed for seamless healthcare management,
 2. [Setup Instructions](#setup-instructions)
 3. [Database Migration and Seeding](#database-migration-and-seeding)
 4. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
-5. [Interactive API Documentation with Swagger](#interactive-api-documentation-with-swagger)
-6. [Unit Testing](#unit-testing)
-7. [Features](#features)
+5. [Features](#features)
+6. [Interactive API Documentation with Swagger](#interactive-api-documentation-with-swagger)
 
 ## Prerequisites
 
@@ -85,6 +84,41 @@ A comprehensive medical application designed for seamless healthcare management,
       Patients:
       * The associated_doctors column in the patients table stores an array of doctor IDs. This provides quick access to associated doctors but is complemented by the patient_doctors table for maintaining integrity and relationships.
    ```
+   
+   ## Features
+
+   ### 1. **User Authentication**
+   - Users can register by providing basic details such as name, email, and password.
+   - After logging in, users receive a **JWT token** that is required to access secured endpoints.
+   - The token must be sent in the **Authorization** header as `Bearer <token>` for all authenticated API requests.
+   - Example of an authenticated request:
+   ```bash
+   curl -X GET http://localhost:3000/api/todos \
+         -H "Authorization: Bearer <your-token>"
+   ```
+
+   ### 2. **To-Do Management**
+   - **Create To-Dos**: Users can create tasks with details such as `task`, `deadline`, `resources`, and assign them to multiple users.
+   - **Filter To-Dos**: Retrieve tasks based on filters like `task name`, `deadline range`, or `assigned users`.
+   - **Update To-Dos**: Modify task details and assignments as needed.
+   - **Delete To-Dos**: Permanently remove tasks from the system.
+   - **Authentication Required**: Only authenticated users can manage to-dos.
+
+   ### 3. **Patient Management**
+   - **Add Patients**: Users can add patients with personal details (e.g., name, age, gender).
+   - **Associate Doctors**: Link multiple doctors to a single patient for collaborative care.
+   - **View Patient Details**: Retrieve information about patients, including associated doctors.
+   - **Authentication Required**: Only authenticated users can manage patients.
+
+   ### 4. **Role-Based Access**
+   - Different roles (`Doctor`, `Nurse`, `Secretary`) may have varied permissions in future updates.
+   - Currently, authenticated users have general access to create, update, and manage todos and patients.
+
+   ### 5. **API Documentation with Swagger**
+   - Swagger UI provides a detailed and interactive interface to test all endpoints.
+   - Each endpoint specifies whether authentication (token) is required.
+   - Example: Accessing `/api/todos` requires a token, while `/api/register` does not. 
+
    ## Interactive API Documentation with Swagger
    This application includes Swagger for API documentation, providing an interactive interface to explore and test the available endpoints.
 
