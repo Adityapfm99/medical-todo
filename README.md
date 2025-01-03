@@ -1,6 +1,6 @@
 # Medical todo Application
 
-A medical application that allows users to register, log in, and access various healthcare-related features.
+A comprehensive medical application designed for seamless healthcare management, enabling users to register, log in, and efficiently manage tasks such as creating and filtering to-dos, associating patients with multiple doctors, and streamlining care coordination. The app integrates authentication, task management, and patient-doctor relationships to enhance productivity and collaboration in healthcare settings
 
 ## Table of Contents
 
