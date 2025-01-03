@@ -1,0 +1,488 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Medical Todo API",
+    "version": "1.0.0",
+    "description": "API documentation for the Medical Todo application."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Local server for API endpoints"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server for login endpoint"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Login to obtain access token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/patients": {
+      "get": {
+        "summary": "Get all patients",
+        "responses": {
+          "200": {
+            "description": "List of patients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Patient"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new patient",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPatient"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Patient created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos": {
+      "get": {
+        "summary": "Get all To-Do items",
+        "responses": {
+          "200": {
+            "description": "List of To-Do items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new To-Do",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTodo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "To-Do created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "get": {
+        "summary": "Get a specific To-Do item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the To-Do item",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "To-Do item details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "To-Do not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific To-Do item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the To-Do item",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTodo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "To-Do updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "To-Do not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific To-Do item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the To-Do item",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "To-Do deleted successfully"
+          },
+          "404": {
+            "description": "To-Do not found"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Patient": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "age": {
+            "type": "integer",
+            "example": 45
+          },
+          "gender": {
+            "type": "string",
+            "example": "Male"
+          },
+          "associated_doctors": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [1, 2]
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          }
+        }
+      },
+      "NewPatient": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "age": {
+            "type": "integer",
+            "example": 45
+          },
+          "gender": {
+            "type": "string",
+            "example": "Male"
+          },
+          "associated_doctors": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [1, 2]
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          }
+        }
+      },
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "task": {
+            "type": "string",
+            "example": "Review patient documents"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-31T22:11:00"
+          },
+          "created_by": {
+            "type": "integer",
+            "example": 1
+          },
+          "patient_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "resources": {
+            "type": "object",
+            "example": {
+              "url": "https://example.com/document.pdf"
+            }
+          },
+          "assigned_users": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [1, 2]
+          }
+        }
+      },
+      "NewTodo": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string",
+            "example": "Review patient documents"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-31T22:11:00"
+          },
+          "created_by": {
+            "type": "integer",
+            "example": 1
+          },
+          "patient_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "resources": {
+            "type": "object",
+            "example": {
+              "url": "https://example.com/document.pdf"
+            }
+          },
+          "assigned_users": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [1, 2]
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "role": {
+            "type": "string",
+            "example": "admin"
+          },
+          "doctor_number": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "NewUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          },
+          "role": {
+            "type": "string",
+            "example": "admin"
+          },
+          "doctor_number": {
+            "type": "string",
+            "example": "12345"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "role"
+        ]
+      }
+    }
+  }
+}

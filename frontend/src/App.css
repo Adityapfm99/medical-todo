@@ -1,0 +1,298 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* App Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: white;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-info {
+  font-size: 16px;
+}
+
+/* Page Containers */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tab-content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Forms */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+form input,
+form select,
+form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Login Page */
+.login-page,
+.create-user-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login-container,
+.create-user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.login-container h1,
+.create-user-container h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.login-container input,
+.create-user-container input,
+.create-user-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.login-container button,
+.create-user-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.login-container button:hover,
+.create-user-container button:hover {
+  background-color: #0056b3;
+}
+
+.back-to-login-button {
+  margin-top: 20px;
+  background-color: #6c757d;
+}
+
+.back-to-login-button:hover {
+  background-color: #5a6268;
+}
+
+.register-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.register-link .link {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.register-link .link:hover {
+  color: #0056b3;
+}
+
+/* Alerts */
+.message-dialog {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.message-dialog.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.message-dialog.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+/* Filters */
+.filters {
+  max-width: 700px;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filters input,
+.filters button {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.filters button {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+}
+
+.filters button:hover {
+  background-color: #155c9c;
+}
+
+/* Todo List */
+.todo-list-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+.todo-item {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.todo-task {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Buttons */
+.button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: white;
+  border: none;
+}
+
+.button.edit-btn {
+  background-color: #007bff;
+}
+
+.button.create-btn {
+  background-color: #4a90e2;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Collapsible Sections */
+.collapsible-container {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+
+.collapsible-header {
+  background: #f4f4f4;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.collapsible-content {
+  padding: 15px;
+  background: #ffffff;
+}
