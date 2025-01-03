@@ -63,6 +63,85 @@
         }
       }
     },
+    "/register": {
+      "post": {
+        "summary": "User register",
+        "description": "register to obtain access token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "password123"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password123"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "Doctor"
+                  },
+                  "doctor_number": {
+                    "type": "string",
+                    "example": "D-001"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": "1"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "user@example.com"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "aditya"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "$2b$10$i6WYsrz19TELq2VA4NqYsu4eYFsNj4iJOiGd1zu5/OKzEIXA0hsm"
+                    },
+                    "role": {
+                      "type": "string",
+                      "example": "Doctor"
+                    },
+                     "doctor_number": {
+                      "type": "string",
+                      "example": "D-001"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/patients": {
       "get": {
         "summary": "Get all patients",
