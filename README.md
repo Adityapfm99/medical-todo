@@ -57,20 +57,20 @@ A medical application that allows users to register, log in, and access various 
    ```bash
    npm run migrate
    ```
-   ![Alt text](img/migrate.png)
+   ![Alt text](backend/src/img/migrate.png)
 
 2. **Seed initial data**:
     Populate the database with initial data:
    ```bash
    npm run seed:users
    ```
-   ![Alt text](img/seeds.png)
+   ![Alt text](backend/src/img/seeds.png)
    
 
 ## Entity-Relationship Diagram (ERD)
    Below is relationship diagram
 
-   ![Alt text](img/erd.png)
+   ![Alt text](backend/src/img/erd.png)
    
    Explanation of Relationships
 
