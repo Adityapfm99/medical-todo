@@ -12,37 +12,34 @@ export const validateUser = [
     .withMessage("Role must be Doctor, Nurse, or Secretary"),
 ];
 
-// Middleware to handle validation errors
-export const handleValidationErrors = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Response | void => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res
-      .status(400)
-      .json({ message: errors.array().map((err) => err.msg).join(", ") });
-  }
-  next();
-};
+// // Middleware to handle validation errors
+// export const handleValidationErrors = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): Response | void => {
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty()) {
+//     return res
+//       .status(400)
+//       .json({ message: errors.array().map((err) => err.msg).join(", ") });
+//   }
+//   next();
+// };
 
 // Create User Controller
 export const createUser = async (req: Request, res: Response): Promise<void> => {
+  console.log("Request body:", req.body); // Log request body
   try {
     const { name, email, password, role, doctor_number } = req.body;
-
-    // Call the service layer to create a user
     const user = await userService.createUser({ name, email, password, role, doctor_number });
-
-    // Send the created user as a response
     res.status(201).json(user);
-  } catch (error) {
-    // Handle known errors like duplicate email
-    if ((error as any).code === '23505') {
-      res.status(400).json({ message: 'Duplicate email or doctor number' });
+  } catch (error: any) {
+    console.error("Error in createUser:", error.message);
+    if (error.message.includes("Duplicate email")) {
+      res.status(400).json({ message: "Duplicate email" });
     } else {
-      res.status(500).json({ message: (error as Error).message });
+      res.status(500).json({ message: "Failed to create user" });
     }
   }
 };
@@ -54,6 +51,8 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
     const users = await userService.getAllUsers();
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ message: (error as Error).message });
+    const err = error as Error; // Type assertion
+    console.error("Error in getAllUsers:", err.message);
+    res.status(500).json({ message: "Failed to fetch users" });
   }
 };

@@ -6,9 +6,11 @@ A medical application that allows users to register, log in, and access various 
 
 1. [Prerequisites](#prerequisites)
 2. [Setup Instructions](#setup-instructions)
-3. [Database Seeding](#database-seeding)
-4. [Feature Testing](#feature-testing)
-5. [Troubleshooting](#troubleshooting)
+3. [Database Migration and Seeding](#database-migration-seeding)
+4. [Database Seeding](#database-seeding)
+5. [Entity-Relationship Diagram (ERD)](#erd)
+6. [Unit Testing](#unit-testing)
+7. [Features](#features)
 
 ## Prerequisites
 
@@ -38,26 +40,48 @@ A medical application that allows users to register, log in, and access various 
         DB_PORT=
         DB_NAME=
         JWT_SECRET=
-        DB_NAME_TEST=
         JWT_SECRET=
    ```
 
-4. **Run Database Migrations**:
-   Use the following command to apply migrations:
-   ```bash
-   npm run migrate
-   ```
-
-5. **Start the Application**:
+4. **Start the Application**:
    ```bash
    npm start
    ```
    Access the application at `http://localhost:3000`.
 
-## Database Seeding
 
-1. **Run Seed Script**:
-   Use the provided seed script to populate the database with initial data:
+## Database Migration and Seeding
+
+1. **Run Migrations**:
+   Create the necessary database tables using the provided migration scripts:
+   ```bash
+   npm run migrate
+   ```
+   ![Alt text](img/migrate.png)
+
+2. **Seed initial data**:
+    Populate the database with initial data:
    ```bash
    npm run seed:users
+   ```
+   ![Alt text](img/seeds.png)
+   
+
+## Entity-Relationship Diagram (ERD)
+   Below is relationship diagram
+
+   ![Alt text](img/erd.png)
+   
+   Explanation of Relationships
+
+   ```bash
+
+      Users and Todos:
+      * A one-to-many relationship: Each user (creator) can create multiple todos. The created_by column in the todos table references the id column in the users table.
+      Users and Todo_Users:
+      * A many-to-many relationship: A todo can be assigned to multiple users, and a user can have multiple todos assigned to them. This relationship is represented by the todo_users table, which has foreign keys referencing both the users and todos tables.
+      Patients and Users (Doctors):
+      * A many-to-many relationship: Each patient can have multiple associated doctors, and each doctor can be associated with multiple patients. This is represented by the patient_doctors table, with foreign keys referencing patients and users.
+      Patients:
+      * The associated_doctors column in the patients table stores an array of doctor IDs. This provides quick access to associated doctors but is complemented by the patient_doctors table for maintaining integrity and relationships.
    ```

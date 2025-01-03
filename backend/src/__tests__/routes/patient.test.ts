@@ -1,61 +1,75 @@
 import request from 'supertest';
 import app from '../../app'; // Import your Express app
-import pool from '../../../src/config/database'; // Import your database connection
+import * as patientService from '../../services/patientService'; // Mock patientService
 
-// Mock data
+jest.mock('../../services/patientService'); // Mock the entire service
+
 const mockPatient = {
   name: 'John Doe',
-  email: 'john.doe@example.com',
   age: 30,
   gender: 'Male',
-  associated_doctors: [1, 2],
+  associatedDoctors: [1, 2],
+  email: 'john.doe@example.com',
 };
 
+const mockPatientResponse = {
+  id: 1,
+  ...mockPatient,
+};
 
-describe('Patients API', () => {
-  beforeAll(async () => {
-    // Set up the test database
-    await pool.query(`
-     CREATE TABLE patients (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        age INTEGER NOT NULL,
-        gender VARCHAR(10) CHECK (gender IN ('Male', 'Female', 'Other')),
-        associated_doctors INTEGER[] NOT NULL, -- Array of doctor IDs from users table
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-    `);
+describe('Patient API Endpoints', () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); // Clear all mocks before each test
   });
 
-  beforeEach(async () => {
-    // Clear the patients table before each test
-    await pool.query('TRUNCATE TABLE patients RESTART IDENTITY CASCADE;');
-  });
+  describe('POST /api/patients', () => {
+    it('should create a new patient', async () => {
+      // Mock patientService.createPatient to return a successful response
+      (patientService.createPatient as jest.Mock).mockResolvedValueOnce(mockPatientResponse);
 
-  afterAll(async () => {
-    // Clean up the test database
-    await pool.query('DROP TABLE IF EXISTS patients CASCADE;');
-    await pool.end();
-  });
+      const response = await request(app).post('/api/patients').send(mockPatient);
 
-  it('should create a new patient', async () => {
-    const response = await request(app).post('/api/patients').send(mockPatient);
-    console.log(response.body); // Log the response for debugging
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('id');
-    expect(response.body.name).toBe(mockPatient.name);
-    expect(response.body.email).toBe(mockPatient.email);
+      expect(response.status).toBe(201);
+      expect(response.body).toHaveProperty('id', 1);
+      expect(response.body.name).toBe(mockPatient.name);
+      expect(patientService.createPatient).toHaveBeenCalledWith(mockPatient);
+    });
+
+    it('should handle validation errors for associatedDoctors', async () => {
+      // Test with invalid associatedDoctors
+      const invalidPatient = { ...mockPatient, associatedDoctors: 'invalid' }; // Invalid: not an array
+    
+      const response = await request(app).post('/api/patients').send(invalidPatient);
+    
+      // Expect 400 Bad Request
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', "Invalid input: 'associatedDoctors' must be an array.");
+    });
   });
   
-  it('should return all patients', async () => {
-    await request(app).post('/api/patients').send(mockPatient);
-  
-    const response = await request(app).get('/api/patients');
-    console.log("Get All Patients Response:", response.body); // Debug response
-    expect(response.status).toBe(200);
-    expect(response.body).toBeInstanceOf(Array);
-    expect(response.body.length).toBe(1);
-    expect(response.body[0].name).toBe(mockPatient.name);
-    expect(response.body[0].email).toBe(mockPatient.email);
+
+  describe('GET /api/patients', () => {
+    it('should return all patients', async () => {
+      // Mock patientService.getAllPatients to return a list of patients
+      (patientService.getAllPatients as jest.Mock).mockResolvedValueOnce([mockPatientResponse]);
+
+      const response = await request(app).get('/api/patients');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toBeInstanceOf(Array);
+      expect(response.body.length).toBe(1);
+      expect(response.body[0].name).toBe(mockPatient.name);
+      expect(patientService.getAllPatients).toHaveBeenCalled();
+    });
+
+    it('should handle errors in getAllPatients', async () => {
+      // Mock an error in patientService.getAllPatients
+      (patientService.getAllPatients as jest.Mock).mockRejectedValueOnce(new Error('Database Error'));
+
+      const response = await request(app).get('/api/patients');
+
+      expect(response.status).toBe(500);
+      expect(response.body).toHaveProperty('error', 'Database Error');
+    });
   });
 });
