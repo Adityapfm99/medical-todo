@@ -96,6 +96,11 @@ A comprehensive medical application designed for seamless healthcare management,
    curl -X GET http://localhost:3000/api/todos \
          -H "Authorization: Bearer <your-token>"
    ```
+    ### UI Login
+   ![Alt text](backend/src/img/login.png)
+
+    ### UI Registration
+   ![Alt text](backend/src/img/registration.png)
 
    ### 2. **To-Do Management**
    - **Create To-Dos**: Users can create tasks with details such as `task`, `deadline`, `resources`, and assign them to multiple users.
@@ -104,11 +109,20 @@ A comprehensive medical application designed for seamless healthcare management,
    - **Delete To-Dos**: Permanently remove tasks from the system.
    - **Authentication Required**: Only authenticated users can manage to-dos.
 
+    ### UI Create Todo
+   ![Alt text](backend/src/img/create_todo.png)
+
+    ### UI Todolist
+   ![Alt text](backend/src/img/todolist.png)
+
    ### 3. **Patient Management**
    - **Add Patients**: Users can add patients with personal details (e.g., name, age, gender).
    - **Associate Doctors**: Link multiple doctors to a single patient for collaborative care.
    - **View Patient Details**: Retrieve information about patients, including associated doctors.
    - **Authentication Required**: Only authenticated users can manage patients.
+
+    ### UI Patient
+   ![Alt text](backend/src/img/patient.png)
 
    ### 4. **Role-Based Access**
    - Different roles (`Doctor`, `Nurse`, `Secretary`) may have varied permissions in future updates.
