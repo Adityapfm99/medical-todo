@@ -10,6 +10,7 @@ A comprehensive medical application designed for seamless healthcare management,
 4. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
 5. [Features](#features)
 6. [Interactive API Documentation with Swagger](#interactive-api-documentation-with-swagger)
+7. [Unit Testing](#unit-testing)
 
 ## Prerequisites
 
@@ -169,3 +170,9 @@ A comprehensive medical application designed for seamless healthcare management,
          '200':
             description: A list of to-dos
    ```
+### Unit Testing
+   ```bash
+   npm test
+   ```
+
+   ![Alt text](backend/src/img/unittest.png)

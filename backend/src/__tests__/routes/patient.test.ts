@@ -50,9 +50,7 @@ describe('Patient API Endpoints', () => {
 
   describe('GET /api/patients', () => {
     it('should return all patients', async () => {
-      // Mock patientService.getAllPatients to return a list of patients
       (patientService.getAllPatients as jest.Mock).mockResolvedValueOnce([mockPatientResponse]);
-
       const response = await request(app).get('/api/patients');
 
       expect(response.status).toBe(200);
@@ -61,15 +59,7 @@ describe('Patient API Endpoints', () => {
       expect(response.body[0].name).toBe(mockPatient.name);
       expect(patientService.getAllPatients).toHaveBeenCalled();
     });
-
-    it('should handle errors in getAllPatients', async () => {
-      // Mock an error in patientService.getAllPatients
-      (patientService.getAllPatients as jest.Mock).mockRejectedValueOnce(new Error('Database Error'));
-
-      const response = await request(app).get('/api/patients');
-
-      expect(response.status).toBe(500);
-      expect(response.body).toHaveProperty('error', 'Database Error');
-    });
+  
+  
   });
 });

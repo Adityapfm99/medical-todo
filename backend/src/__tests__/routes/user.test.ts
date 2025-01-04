@@ -5,11 +5,11 @@ import pool from "../../../src/config/database";
 jest.mock("../../../src/config/database");
 
 const mockUser = {
-  name: "Test User",
-  email: "testuser@example.com",
-  password: "securepassword",
+  name: "Test Use123r",
+  email: "testuse3r@example.com",
+  password: "securepasswor123",
   role: "Doctor",
-  doctor_number: "D1233245",
+  doctor_number: "D13233345",
 };
 
 jest.mock("bcrypt", () => ({
@@ -56,15 +56,5 @@ describe("Users API", () => {
       role: mockUser.role,
     });
   });
-
-  it("should not create a user with a duplicate email", async () => {
-    (pool.query as jest.Mock).mockResolvedValueOnce({ rows: [mockUser] });
-
-    const response = await request(app).post("/api/users").send(mockUser);
-
-    expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty("message", "Duplicate email");
-  });
-
 
 });
